@@ -1,0 +1,50 @@
+components:
+  schemas:
+    Product:
+      type: object
+      required:
+        - description
+        - price
+        - quantity
+      properties:
+        description:
+          type: string
+          description: Descrição do produto
+        price:
+          type: number
+          description: Valor do produto
+        quantity:
+          type: number
+          description: Quantidade do produto
+      example:
+        description: limpa seca
+        price: 100
+        quantity: 10
+    ProductCreatedResponse:
+      allOf:
+        - $ref: "#/components/schemas/Product"
+        - type: object
+          required:
+            - id
+          properties:
+            id:
+              type: number
+              description: O identificador do produto salvo no banco de dados
+          example:
+            id: 1
+            description: limpa seca
+            price: 100
+            quantity: 10
+    ProductCreationFailResponse:
+      type: object
+      properties:
+        errorMessages:
+          type: array
+          items:
+            type: string
+          example:
+            [
+              "Description cannot be empty",
+              "wrong price",
+              "Product not found"
+            ]
